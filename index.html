@@ -1,28 +1,106 @@
-<!DOCTYPE html>
-<html lang="ro">
-<head>
-  <meta charset="UTF-8">
-  <title>AI Video Creator</title>
+"use client";
 
-  <style>
-    body {
-      background: black;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      font-family: Arial;
-      margin: 0;
-    }
+import { useState } from "react";
 
-    h1 {
-      font-size: 50px;
-    }
-  </style>
-</head>
+export default function Home() {
+  const [input, setInput] = useState("");
+  const [result, setResult] = useState("");
 
-<body>
-  <h1>Bine ați venit pe site 🚀</h1>
-</body>
-</html>
+  function generate() {
+    if (!input) return;
+
+    const script =
+      🔥 TITLU VIRAL:\n +
+      \"Poveste emoțională despre: ${input}\"\n\n +
+
+      🎬 SCRIPT VIDEO:\n +
+      1. Spune: "Nu credeam că voi trece prin asta..." \n +
+      2. Povestește scurt experiența legată de ${input}\n +
+      3. Final: "Dacă ai trecut prin asta, nu ești singur."\n\n +
+
+      📱 CAPTION:\n +
+      Câteva povești dor dor... #love #relatii #poveste\n\n +
+
+      🔥 HASHTAGURI:\n +
+      #fyp #viral #relatii #poveste #emotie;
+
+    setResult(script);
+  }
+
+  return (
+    <main style={styles.container}>
+      <div style={styles.card}>
+        <h1 style={styles.title}>AI TikTok Video Generator</h1>
+        <p style={styles.subtitle}>
+          Creează idei virale pentru nișa relații
+        </p>
+
+        <input
+          style={styles.input}
+          placeholder="Scrie ideea ta (ex: despărțire, iubire, trădare)"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+        />
+
+        <button style={styles.button} onClick={generate}>
+          Generează
+        </button>
+
+        {result && (
+          <pre style={styles.output}>{result}</pre>
+        )}
+      </div>
+    </main>
+  );
+}
+
+const styles: any = {
+  container: {
+    minHeight: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    background: "#0f172a",
+    color: "white",
+    fontFamily: "Arial",
+    padding: "20px",
+  },
+  card: {
+    width: "100%",
+    maxWidth: "600px",
+    padding: "30px",
+    background: "#1e293b",
+    borderRadius: "20px",
+  },
+  title: {
+    fontSize: "28px",
+    marginBottom: "10px",
+  },
+  subtitle: {
+    opacity: 0.7,
+    marginBottom: "20px",
+  },
+  input: {
+    width: "100%",
+    padding: "12px",
+    borderRadius: "10px",
+    border: "none",
+    marginBottom: "10px",
+  },
+  button: {
+    width: "100%",
+    padding: "12px",
+    background: "#3b82f6",
+    border: "none",
+    color: "white",
+    borderRadius: "10px",
+    cursor: "pointer",
+    marginBottom: "20px",
+  },
+  output: {
+    whiteSpace: "pre-wrap",
+    background: "#0b1220",
+    padding: "15px",
+    borderRadius: "10px",
+  },
+};
