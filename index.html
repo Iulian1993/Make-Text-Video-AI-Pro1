@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+[09:41, 24.05.2026] Iulian: <!DOCTYPE html>
 <html lang="ro">
 <head>
 <meta charset="UTF-8" />
@@ -22,6 +22,49 @@ body {
   position: absolute;
   inset: 0;
   background: rgba(0,0,0,0.55);
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+h1 {
+  font-size: 48px;
+  text-shadow: 0 0 20px #ff00ff, 0 0 30px #00ffff;
+}
+
+button {
+  margin-top: 20px;
+  padding:…
+[09:45, 24.05.2026] Iulian: <!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AI TikTok Generator</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  height: 100vh;
+  overflow: hidden;
+  color: white;
+
+  background: url("https://images.unsplash.com/photo-1521737604893-d14cc237f11d") center/cover no-repeat;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
 }
 
 .container {
@@ -81,33 +124,27 @@ input {
   <div id="box">
     <input id="idea" placeholder="Scrie ideea ta..." />
     <br><br>
-    <button onclick="generate()">Generează AI</button>
+    <button onclick="generate()">Generează</button>
 
     <p id="result"></p>
   </div>
 </div>
 
 <script>
-async function generate() {
+function generate() {
   const idea = document.getElementById("idea").value;
-  const resBox = document.getElementById("result");
+  const result = document.getElementById("result");
 
   if(!idea){
-    resBox.innerText = "Scrie ceva 😄";
+    result.innerText = "Scrie ceva 😄";
     return;
   }
 
-  resBox.innerText = "Se generează... 🤖";
-
-  const res = await fetch("/api/generate", {
-    method: "POST",
-    headers: {"Content-Type":"application/json"},
-    body: JSON.stringify({ idea })
-  });
-
-  const data = await res.json();
-
-  resBox.innerText = data.result;
+  // simulare AI (momentan)
+  result.innerText =
+    "🔥 HOOK: Ai văzut asta despre " + idea + "?\n" +
+    "🎬 SCRIPT: începe puternic + problemă + rezolvare\n" +
+    "⚡ FINAL: twist neașteptat + viral potential";
 }
 </script>
 
