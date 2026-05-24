@@ -11,33 +11,22 @@ body {
   font-family: Arial;
   height: 100vh;
   overflow: hidden;
-  color: white;
   background: #0b0b0f;
+  color: white;
 }
 
-/* emoji background */
+/* emoji rain */
 .emoji {
   position: absolute;
   top: -50px;
   font-size: 24px;
   animation: fall linear infinite;
-  opacity: 0.8;
 }
 
 @keyframes fall {
-  to {
-    transform: translateY(110vh);
-  }
+  to { transform: translateY(110vh); }
 }
 
-/* overlay */
-.overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.55);
-}
-
-/* container */
 .container {
   position: relative;
   z-index: 2;
@@ -50,7 +39,7 @@ body {
 }
 
 h1 {
-  font-size: 44px;
+  font-size: 42px;
   text-shadow: 0 0 20px #ff00ff, 0 0 30px #00ffff;
 }
 
@@ -64,105 +53,52 @@ button {
   font-weight: bold;
 }
 
-#box {
-  display:none;
-  margin-top:20px;
-}
-
-input {
-  padding:12px;
-  border-radius:10px;
-  border:none;
-  width:250px;
-}
-
-#result {
-  margin-top:15px;
-  white-space: pre-line;
-}
-
 /* hearts */
 .heart {
   position: absolute;
-  font-size: 28px;
+  font-size: 26px;
   animation: pop 1s ease-out forwards;
   pointer-events: none;
 }
 
 @keyframes pop {
   0% { transform: scale(1); opacity: 1; }
-  100% { transform: translateY(-100px) scale(2); opacity: 0; }
+  100% { transform: translateY(-120px) scale(2); opacity: 0; }
 }
 </style>
 </head>
 
 <body>
 
-<div class="overlay"></div>
-
 <div class="container">
   <h1>AI TikTok Generator 🚀</h1>
-
-  <button onclick="document.getElementById('box').style.display='block'">
-    Start
-  </button>
-
-  <div id="box">
-    <input id="idea" placeholder="Scrie ideea ta..." />
-    <br><br>
-    <button onclick="generate()">Generează</button>
-
-    <p id="result"></p>
-  </div>
+  <button onclick="alert('Funcționează ✔️')">Start</button>
 </div>
 
 <script>
 const emojis = ["🔥","😂","💰","🚀","❤️","⚡","💎","😎"];
 
 /* emoji rain */
-function createEmoji(){
-  const el = document.createElement("div");
-  el.classList.add("emoji");
-  el.innerText = emojis[Math.floor(Math.random()*emojis.length)];
-
-  el.style.left = Math.random()*100 + "vw";
-  el.style.animationDuration = (3 + Math.random()*5) + "s";
-
-  document.body.appendChild(el);
-
-  setTimeout(()=> el.remove(), 8000);
-}
-
-setInterval(createEmoji, 200);
+setInterval(() => {
+  const e = document.createElement("div");
+  e.classList.add("emoji");
+  e.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+  e.style.left = Math.random()*100 + "vw";
+  e.style.animationDuration = (3 + Math.random()*5) + "s";
+  document.body.appendChild(e);
+  setTimeout(()=>e.remove(),8000);
+}, 200);
 
 /* hearts */
-document.addEventListener("click", function(e){
-  const heart = document.createElement("div");
-  heart.classList.add("heart");
-  heart.innerText = "💖";
-  heart.style.left = e.clientX + "px";
-  heart.style.top = e.clientY + "px";
-
-  document.body.appendChild(heart);
-
-  setTimeout(()=> heart.remove(), 1000);
+document.addEventListener("click", (e)=>{
+  const h = document.createElement("div");
+  h.classList.add("heart");
+  h.innerText = "💖";
+  h.style.left = e.clientX + "px";
+  h.style.top = e.clientY + "px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),1000);
 });
-
-/* generator (fără AI încă – sigur că merge) */
-function generate() {
-  const idea = document.getElementById("idea").value;
-  const result = document.getElementById("result");
-
-  if(!idea){
-    result.innerText = "Scrie ceva 😄";
-    return;
-  }
-
-  result.innerText =
-    "🔥 HOOK: Ai văzut asta despre " + idea + "?\n" +
-    "🎬 SCRIPT: început puternic + problemă + soluție\n" +
-    "⚡ TWIST: final neașteptat viral";
-}
 </script>
 
 </body>
