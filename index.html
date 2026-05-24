@@ -2,6 +2,7 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AI TikTok Video Generator</title>
 
   <style>
@@ -12,5 +13,75 @@
       height: 100vh;
       overflow: hidden;
 
-      /* FUNDAL IMAGINE (TikTok neon style) */
+      /* FUNDAL IMAGINE */
       background-image: url("a_dark_neon_cyber_tech_themed_web_app_landing_pag.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+    }
+
+    /* overlay ca să nu fie imaginea prea “stridentă” */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(2px);
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+      text-shadow: 0 0 15px #ff00ff;
+    }
+
+    p {
+      font-size: 18px;
+      opacity: 0.85;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: linear-gradient(45deg, #ff00ff, #00ffff);
+      color: black;
+      font-weight: bold;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      transition: 0.2s;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Bine ai venit pe site 🚀</h1>
+    <p>Generează videoclipuri AI pentru TikTok în câteva secunde</p>
+    <button>Începe</button>
+  </div>
+
+</body>
+</html>
