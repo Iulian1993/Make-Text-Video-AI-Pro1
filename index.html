@@ -1,4 +1,4 @@
-[09:41, 24.05.2026] Iulian: <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ro">
 <head>
 <meta charset="UTF-8" />
@@ -12,18 +12,33 @@ body {
   height: 100vh;
   overflow: hidden;
   color: white;
-
-  background-image: url("images/background.png");
-  background-size: cover;
-  background-position: center;
+  background: #0b0b0f;
 }
 
+/* 🔥 emoji background */
+.emoji {
+  position: absolute;
+  top: -50px;
+  font-size: 24px;
+  animation: fall linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh);
+  }
+}
+
+/* overlay */
 .overlay {
   position: absolute;
   inset: 0;
   background: rgba(0,0,0,0.55);
+  z-index: 1;
 }
 
+/* container */
 .container {
   position: relative;
   z-index: 2;
@@ -36,50 +51,7 @@ body {
 }
 
 h1 {
-  font-size: 48px;
-  text-shadow: 0 0 20px #ff00ff, 0 0 30px #00ffff;
-}
-
-button {
-  margin-top: 20px;
-  padding:…
-[09:45, 24.05.2026] Iulian: <!DOCTYPE html>
-<html lang="ro">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>AI TikTok Generator</title>
-
-<style>
-body {
-  margin: 0;
-  font-family: Arial;
-  height: 100vh;
-  overflow: hidden;
-  color: white;
-
-  background: url("https://images.unsplash.com/photo-1521737604893-d14cc237f11d") center/cover no-repeat;
-}
-
-.overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-}
-
-.container {
-  position: relative;
-  z-index: 2;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-h1 {
-  font-size: 48px;
+  font-size: 44px;
   text-shadow: 0 0 20px #ff00ff, 0 0 30px #00ffff;
 }
 
@@ -87,11 +59,13 @@ button {
   margin-top: 20px;
   padding: 12px 24px;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
   background: linear-gradient(45deg,#ff00ff,#00ffff);
+  font-weight: bold;
 }
 
+/* generator box */
 #box {
   display:none;
   margin-top:20px;
@@ -106,6 +80,20 @@ input {
 
 #result {
   margin-top:15px;
+  white-space: pre-line;
+}
+
+/* 💖 hearts click */
+.heart {
+  position: absolute;
+  font-size: 28px;
+  animation: pop 1s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes pop {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: translateY(-100px) scale(2); opacity: 0; }
 }
 </style>
 </head>
@@ -131,22 +119,17 @@ input {
 </div>
 
 <script>
-function generate() {
-  const idea = document.getElementById("idea").value;
-  const result = document.getElementById("result");
+/* 🌟 emoji rain */
+const emojis = ["🔥","😂","💰","🚀","❤️","⚡","💎","😎"];
 
-  if(!idea){
-    result.innerText = "Scrie ceva 😄";
-    return;
-  }
+function createEmoji(){
+  const el = document.createElement("div");
+  el.classList.add("emoji");
+  el.innerText = emojis[Math.floor(Math.random()*emojis.length)];
 
-  // simulare AI (momentan)
-  result.innerText =
-    "🔥 HOOK: Ai văzut asta despre " + idea + "?\n" +
-    "🎬 SCRIPT: începe puternic + problemă + rezolvare\n" +
-    "⚡ FINAL: twist neașteptat + viral potential";
-}
-</script>
+  el.style.left = Math.random()*100 + "vw";
+  el.style.animationDuration = (3 + Math.random()*5) + "s";
 
-</body>
-</html>
+  document.body.appendChild(el);
+
+  setTimeout(()=> el.remove(),
