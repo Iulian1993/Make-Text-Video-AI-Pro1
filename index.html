@@ -9,137 +9,78 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  overflow: hidden;
   height: 100vh;
-  background: #050505;
+  overflow: hidden;
   color: white;
+
+  /* 🔥 imaginea ta ca fundal */
+  background-image: url("/mnt/data/a_dark_futuristic_neon_tiktok_themed_digital_wall.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-/* NEON BACKGROUND */
-.bg {
+/* overlay întunecat ca să se vadă textul */
+.overlay {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at top, #ff00ff55, transparent 40%),
-              radial-gradient(circle at bottom, #00ffff55, transparent 40%);
-  animation: pulse 6s infinite alternate;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(2px);
 }
 
-@keyframes pulse {
-  from { filter: brightness(1); }
-  to { filter: brightness(1.4); }
-}
-
-/* MAIN UI */
+/* conținut */
 .container {
   position: relative;
-  z-index: 10;
+  z-index: 2;
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
+  padding: 20px;
 }
 
 h1 {
-  font-size: 42px;
-  text-shadow: 0 0 20px #ff00ff;
+  font-size: 48px;
+  margin: 0;
+  text-shadow: 0 0 20px #ff00ff, 0 0 30px #00ffff;
+}
+
+p {
+  font-size: 18px;
+  opacity: 0.9;
+  margin-top: 10px;
 }
 
 button {
-  margin-top: 20px;
-  padding: 14px 26px;
+  margin-top: 25px;
+  padding: 14px 28px;
   border: none;
   border-radius: 12px;
-  cursor: pointer;
   font-weight: bold;
+  cursor: pointer;
   background: linear-gradient(45deg,#ff00ff,#00ffff);
+  color: black;
+  box-shadow: 0 0 20px #ff00ff55;
 }
 
-/* ❤️ HEARTS */
-.heart {
-  position: absolute;
-  font-size: 28px;
-  animation: floatHeart 2s linear forwards;
-  pointer-events: none;
-}
-
-@keyframes floatHeart {
-  0% {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-150px) scale(1.8);
-    opacity: 0;
-  }
-}
-
-/* 💬 COMMENTS */
-.comment {
-  position: absolute;
-  left: 20px;
-  font-size: 14px;
-  opacity: 0.8;
-  animation: floatComment 6s linear forwards;
-  background: rgba(255,255,255,0.08);
-  padding: 6px 10px;
-  border-radius: 8px;
-}
-
-@keyframes floatComment {
-  from { transform: translateY(100vh); }
-  to { transform: translateY(-20vh); }
+button:hover {
+  transform: scale(1.05);
 }
 </style>
 </head>
 
 <body>
 
-<div class="bg"></div>
+<div class="overlay"></div>
 
 <div class="container">
-  <h1>AI TikTok Generator 🚀</h1>
-  <p>Click oriunde pentru ❤️</p>
+  <h1>AI TikTok Video Generator 🚀</h1>
+  <p>Generează videoclipuri virale în câteva secunde</p>
   <button>Start</button>
 </div>
-
-<script>
-// ❤️ inimioare la click
-document.addEventListener("click", function(e) {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.innerHTML = "❤️";
-  heart.style.left = e.clientX + "px";
-  heart.style.top = e.clientY + "px";
-  document.body.appendChild(heart);
-
-  setTimeout(() => heart.remove(), 2000);
-});
-
-// 💬 comentarii random care urcă
-const comments = [
-  "🔥 super tare",
-  "😂 lol",
-  "wow ce app!",
-  "🚀 next level",
-  "❤️ îmi place",
-  "📈 viral!"
-];
-
-function spawnComment() {
-  const c = document.createElement("div");
-  c.className = "comment";
-  c.innerText = comments[Math.floor(Math.random() * comments.length)];
-  c.style.left = Math.random() * window.innerWidth + "px";
-  document.body.appendChild(c);
-
-  setTimeout(() => c.remove(), 6000);
-}
-
-setInterval(spawnComment, 1200);
-</script>
 
 </body>
 </html>
