@@ -2,56 +2,122 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8" />
-  <title>AI TikTok Video Generator</title>
+  <title>AI TikTok Generator</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: white;
+      height: 100vh;
+      overflow: hidden;
+      background: radial-gradient(circle at top, #1e293b, #0f172a, #000);
+    }
+
+    /* efect de lumini */
+    .glow {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: rgba(59,130,246,0.2);
+      filter: blur(120px);
+      top: -100px;
+      left: -100px;
+    }
+
+    .glow2 {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: rgba(236,72,153,0.15);
+      filter: blur(120px);
+      bottom: -150px;
+      right: -150px;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card {
+      width: 90%;
+      max-width: 650px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 0 40px rgba(0,0,0,0.6);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    p {
+      opacity: 0.7;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      margin-bottom: 10px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(90deg, #3b82f6, #ec4899);
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.02);
+    }
+
+    pre {
+      margin-top: 15px;
+      background: rgba(0,0,0,0.4);
+      padding: 15px;
+      border-radius: 10px;
+      white-space: pre-wrap;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+  </style>
 </head>
 
-<body style="margin:0; font-family:Arial; background:#0f172a; color:white; display:flex; justify-content:center; align-items:center; height:100vh;">
+<body>
 
-  <div style="width:90%; max-width:600px; background:#1e293b; padding:30px; border-radius:20px; text-align:center;">
+  <div class="glow"></div>
+  <div class="glow2"></div>
 
-    <h1>AI TikTok Video Generator</h1>
-    <p>Creează idei virale pentru nișa relații</p>
+  <div class="container">
+    <div class="card">
 
-    <input id="input" placeholder="Scrie ideea ta..."
-      style="width:100%; padding:12px; border-radius:10px; border:none; margin-top:10px;" />
+      <h1>AI TikTok Video Generator 🔥</h1>
+      <p>Creează idei virale pentru nișa relații</p>
 
-    <button onclick="generate()"
-      style="margin-top:15px; width:100%; padding:12px; background:#3b82f6; border:none; color:white; border-radius:10px; cursor:pointer;">
-      Generează
-    </button>
+      <input id="input" placeholder="Ex: despărțire, iubire toxică, trădare..." />
 
-    <pre id="output"
-      style="margin-top:20px; background:#0b1220; padding:15px; border-radius:10px; white-space:pre-wrap; text-align:left;">
-    </pre>
+      <button onclick="generate()">Generează idee virală</button>
 
+      <pre id="output"></pre>
+
+    </div>
   </div>
-
-  <script>
-    function generate() {
-      const input = document.getElementById("input").value;
-
-      if (!input) {
-        document.getElementById("output").innerText = "Scrie o idee mai întâi!";
-        return;
-      }
-
-      const result =
-`🔥 TITLU VIRAL:
-Poveste emoțională despre ${input}
-
-🎬 SCRIPT VIDEO:
-1. Spune: "Nu credeam că voi trece prin asta..."
-2. Povestește despre ${input}
-3. Final: "Dacă ai trecut prin asta, nu ești singur."
-
-📱 CAPTION:
-O poveste care doare... 💔
-
-#relatii #viral #fyp #emotie`;
-
-      document.getElementById("output").innerText = result;
-    }
-  </script>
-
-</body>
-</html>
