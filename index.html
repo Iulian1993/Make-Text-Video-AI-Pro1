@@ -8,28 +8,22 @@
 <style>
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: Arial;
   height: 100vh;
   overflow: hidden;
   color: white;
 
-  /* 🔥 imaginea ta ca fundal */
-  background-image: url("/mnt/data/a_dark_futuristic_neon_tiktok_themed_digital_wall.png");
+  background-image: url("images/background.png");
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
 }
 
-/* overlay întunecat ca să se vadă textul */
 .overlay {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: rgba(0,0,0,0.55);
-  backdrop-filter: blur(2px);
 }
 
-/* conținut */
 .container {
   position: relative;
   z-index: 2;
@@ -39,35 +33,36 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 20px;
 }
 
 h1 {
   font-size: 48px;
-  margin: 0;
   text-shadow: 0 0 20px #ff00ff, 0 0 30px #00ffff;
 }
 
-p {
-  font-size: 18px;
-  opacity: 0.9;
-  margin-top: 10px;
-}
-
 button {
-  margin-top: 25px;
-  padding: 14px 28px;
+  margin-top: 20px;
+  padding: 12px 24px;
   border: none;
-  border-radius: 12px;
-  font-weight: bold;
+  border-radius: 10px;
   cursor: pointer;
   background: linear-gradient(45deg,#ff00ff,#00ffff);
-  color: black;
-  box-shadow: 0 0 20px #ff00ff55;
 }
 
-button:hover {
-  transform: scale(1.05);
+#box {
+  display:none;
+  margin-top:20px;
+}
+
+input {
+  padding:12px;
+  border-radius:10px;
+  border:none;
+  width:250px;
+}
+
+#result {
+  margin-top:15px;
 }
 </style>
 </head>
@@ -77,10 +72,44 @@ button:hover {
 <div class="overlay"></div>
 
 <div class="container">
-  <h1>AI TikTok Video Generator 🚀</h1>
-  <p>Generează videoclipuri virale în câteva secunde</p>
-  <button>Start</button>
+  <h1>AI TikTok Generator 🚀</h1>
+
+  <button onclick="document.getElementById('box').style.display='block'">
+    Start
+  </button>
+
+  <div id="box">
+    <input id="idea" placeholder="Scrie ideea ta..." />
+    <br><br>
+    <button onclick="generate()">Generează AI</button>
+
+    <p id="result"></p>
+  </div>
 </div>
+
+<script>
+async function generate() {
+  const idea = document.getElementById("idea").value;
+  const resBox = document.getElementById("result");
+
+  if(!idea){
+    resBox.innerText = "Scrie ceva 😄";
+    return;
+  }
+
+  resBox.innerText = "Se generează... 🤖";
+
+  const res = await fetch("/api/generate", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({ idea })
+  });
+
+  const data = await res.json();
+
+  resBox.innerText = data.result;
+}
+</script>
 
 </body>
 </html>
