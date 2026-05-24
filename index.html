@@ -8,48 +8,32 @@
 <style>
 body {
   margin: 0;
-  font-family: Arial;
-  color: white;
-  height: 100vh;
+  font-family: Arial, sans-serif;
   overflow: hidden;
-  background: #0a0a0a;
+  height: 100vh;
+  background: #050505;
+  color: white;
 }
 
-/* fundal gradient neon */
+/* NEON BACKGROUND */
 .bg {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at top, #ff00ff33, transparent 40%),
-              radial-gradient(circle at bottom, #00ffff33, transparent 40%),
-              #050505;
-  z-index: 0;
+  background: radial-gradient(circle at top, #ff00ff55, transparent 40%),
+              radial-gradient(circle at bottom, #00ffff55, transparent 40%);
+  animation: pulse 6s infinite alternate;
 }
 
-/* emoji-uri care plutesc */
-.emoji {
-  position: absolute;
-  font-size: 28px;
-  opacity: 0.7;
-  animation: floatUp 10s linear infinite;
+@keyframes pulse {
+  from { filter: brightness(1); }
+  to { filter: brightness(1.4); }
 }
 
-@keyframes floatUp {
-  from {
-    transform: translateY(100vh) rotate(0deg);
-    opacity: 0;
-  }
-  10% { opacity: 1; }
-  to {
-    transform: translateY(-10vh) rotate(360deg);
-    opacity: 0;
-  }
-}
-
-/* conținut principal */
+/* MAIN UI */
 .container {
   position: relative;
-  z-index: 2;
+  z-index: 10;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -65,12 +49,48 @@ h1 {
 
 button {
   margin-top: 20px;
-  padding: 12px 22px;
+  padding: 14px 26px;
   border: none;
   border-radius: 12px;
-  background: linear-gradient(45deg,#ff00ff,#00ffff);
-  font-weight: bold;
   cursor: pointer;
+  font-weight: bold;
+  background: linear-gradient(45deg,#ff00ff,#00ffff);
+}
+
+/* ❤️ HEARTS */
+.heart {
+  position: absolute;
+  font-size: 28px;
+  animation: floatHeart 2s linear forwards;
+  pointer-events: none;
+}
+
+@keyframes floatHeart {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-150px) scale(1.8);
+    opacity: 0;
+  }
+}
+
+/* 💬 COMMENTS */
+.comment {
+  position: absolute;
+  left: 20px;
+  font-size: 14px;
+  opacity: 0.8;
+  animation: floatComment 6s linear forwards;
+  background: rgba(255,255,255,0.08);
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+@keyframes floatComment {
+  from { transform: translateY(100vh); }
+  to { transform: translateY(-20vh); }
 }
 </style>
 </head>
@@ -80,17 +100,46 @@ button {
 <div class="bg"></div>
 
 <div class="container">
-  <h1>Bine ai venit 🚀</h1>
-  <p>AI TikTok Video Generator</p>
+  <h1>AI TikTok Generator 🚀</h1>
+  <p>Click oriunde pentru ❤️</p>
   <button>Start</button>
 </div>
 
-<!-- emoji-uri TikTok style -->
-<div class="emoji" style="left:10%">❤️</div>
-<div class="emoji" style="left:25%; animation-delay:2s">🔥</div>
-<div class="emoji" style="left:40%; animation-delay:4s">👍</div>
-<div class="emoji" style="left:60%; animation-delay:1s">💬</div>
-<div class="emoji" style="left:80%; animation-delay:3s">🚀</div>
+<script>
+// ❤️ inimioare la click
+document.addEventListener("click", function(e) {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = e.clientX + "px";
+  heart.style.top = e.clientY + "px";
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 2000);
+});
+
+// 💬 comentarii random care urcă
+const comments = [
+  "🔥 super tare",
+  "😂 lol",
+  "wow ce app!",
+  "🚀 next level",
+  "❤️ îmi place",
+  "📈 viral!"
+];
+
+function spawnComment() {
+  const c = document.createElement("div");
+  c.className = "comment";
+  c.innerText = comments[Math.floor(Math.random() * comments.length)];
+  c.style.left = Math.random() * window.innerWidth + "px";
+  document.body.appendChild(c);
+
+  setTimeout(() => c.remove(), 6000);
+}
+
+setInterval(spawnComment, 1200);
+</script>
 
 </body>
 </html>
