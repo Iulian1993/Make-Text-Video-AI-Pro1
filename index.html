@@ -1,87 +1,96 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AI TikTok Video Generator</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AI TikTok Generator</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      color: white;
-      height: 100vh;
-      overflow: hidden;
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  color: white;
+  height: 100vh;
+  overflow: hidden;
+  background: #0a0a0a;
+}
 
-      /* FUNDAL IMAGINE */
-      background-image: url("a_dark_neon_cyber_tech_themed_web_app_landing_pag.png");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      position: relative;
-    }
+/* fundal gradient neon */
+.bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at top, #ff00ff33, transparent 40%),
+              radial-gradient(circle at bottom, #00ffff33, transparent 40%),
+              #050505;
+  z-index: 0;
+}
 
-    /* overlay ca să nu fie imaginea prea “stridentă” */
-    body::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.65);
-      backdrop-filter: blur(2px);
-      z-index: 0;
-    }
+/* emoji-uri care plutesc */
+.emoji {
+  position: absolute;
+  font-size: 28px;
+  opacity: 0.7;
+  animation: floatUp 10s linear infinite;
+}
 
-    .container {
-      position: relative;
-      z-index: 1;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
-    }
+@keyframes floatUp {
+  from {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% { opacity: 1; }
+  to {
+    transform: translateY(-10vh) rotate(360deg);
+    opacity: 0;
+  }
+}
 
-    h1 {
-      font-size: 42px;
-      margin-bottom: 10px;
-      text-shadow: 0 0 15px #ff00ff;
-    }
+/* conținut principal */
+.container {
+  position: relative;
+  z-index: 2;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 
-    p {
-      font-size: 18px;
-      opacity: 0.85;
-    }
+h1 {
+  font-size: 42px;
+  text-shadow: 0 0 20px #ff00ff;
+}
 
-    button {
-      margin-top: 20px;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      background: linear-gradient(45deg, #ff00ff, #00ffff);
-      color: black;
-      font-weight: bold;
-    }
-
-    button:hover {
-      transform: scale(1.05);
-      transition: 0.2s;
-    }
-  </style>
+button {
+  margin-top: 20px;
+  padding: 12px 22px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(45deg,#ff00ff,#00ffff);
+  font-weight: bold;
+  cursor: pointer;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="container">
-    <h1>Bine ai venit pe site 🚀</h1>
-    <p>Generează videoclipuri AI pentru TikTok în câteva secunde</p>
-    <button>Începe</button>
-  </div>
+<div class="bg"></div>
+
+<div class="container">
+  <h1>Bine ai venit 🚀</h1>
+  <p>AI TikTok Video Generator</p>
+  <button>Start</button>
+</div>
+
+<!-- emoji-uri TikTok style -->
+<div class="emoji" style="left:10%">❤️</div>
+<div class="emoji" style="left:25%; animation-delay:2s">🔥</div>
+<div class="emoji" style="left:40%; animation-delay:4s">👍</div>
+<div class="emoji" style="left:60%; animation-delay:1s">💬</div>
+<div class="emoji" style="left:80%; animation-delay:3s">🚀</div>
 
 </body>
 </html>
