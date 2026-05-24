@@ -1,11 +1,19 @@
 export default async function handler(req, res) {
   if (req.method !== "POST") {
-    return res.status(405).json({ error: "Only POST allowed" });
+    return res.status(200).json({ error: "Use POST from frontend" });
   }
 
-  const { idea } = req.body;
-
   try {
+    if (!process.env.OPENAI_API_KEY) {
+      return res.status(500).json({ result: "Missing OPENAI_API_KEY" });
+    }
+
+    const { idea } = req.body || {};
+
+    if (!idea) {
+      return res.status(400).json({ result: "No idea provided" });
+    }
+
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -17,7 +25,7 @@ export default async function handler(req, res) {
         messages: [
           {
             role: "system",
-            content: "Ești un expert în TikTok viral content. Generează HOOK + SCRIPT + TWIST."
+            content: "Ești expert TikTok viral. Dai HOOK + SCRIPT + TWIST scurt."
           },
           {
             role: "user",
@@ -30,11 +38,19 @@ export default async function handler(req, res) {
 
     const data = await response.json();
 
-    const result = data.choices?.[0]?.message?.content || "Eroare AI";
+    if (!response.ok) {
+      return res.status(500).json({
+        result: "OpenAI error: " + JSON.stringify(data)
+      });
+    }
 
-    res.status(200).json({ result });
+    const result = data.choices?.[0]?.message?.content;
+
+    return res.status(200).json({ result });
 
   } catch (err) {
-    res.status(500).json({ result: "Eroare server" });
+    return res.status(500).json({
+      result: "Server crash: " + err.message
+    });
   }
 }
