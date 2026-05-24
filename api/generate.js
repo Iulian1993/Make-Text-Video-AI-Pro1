@@ -1,10 +1,19 @@
 export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(200).json({ error: "Use POST" });
-  }
-
   try {
-    const { idea } = req.body || {};
+    console.log("REQ METHOD:", req.method);
+
+    if (req.method !== "POST") {
+      return res.status(200).json({ ok: "Use POST" });
+    }
+
+    const idea = req.body?.idea;
+
+    if (!idea) {
+      return res.status(400).json({
+        error: "No idea received",
+        body: req.body
+      });
+    }
 
     const response = await fetch("https://api.openai.com/v1/responses", {
       method: "POST",
@@ -14,19 +23,21 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         model: "gpt-4o-mini",
-        input: "Generează un script TikTok viral: " + (idea || "idee virală")
+        input: idea
       })
     });
 
     const data = await response.json();
 
     return res.status(200).json({
-      result: data.output_text || "Fără răspuns"
+      success: true,
+      openai: data
     });
 
   } catch (err) {
     return res.status(500).json({
-      error: err.message
+      error: err.message,
+      stack: err.stack
     });
   }
 }
